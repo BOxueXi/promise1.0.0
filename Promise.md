@@ -155,12 +155,31 @@ p.then((value)=>{
 })
 ```
 
-### .then()返回的新的promise的结果状态由什么决定？
-1. 由then()指定的回调函数执行的结果决定（参数函数,不管是成功的回调，还是失败的回调）
+### .then()返回的新的promise的结果状态由什么决定？（.then()返回还是一个promisem链式调用）
+1. 由then(function(){})指定的回调函数执行的结果决定（参数函数,不管是成功的回调，还是失败的回调）
 即 参数函数的结果：
 1. 抛出异常，新promise为失败(rejected),结果([[PromiseResult]])为抛出的异常；
 2. 返回的是非promise的任意值，新promise为成功(resolve),结果([[PromiseResult]])为返回的值；
 3. 另一个新的promise，此promise的结果就会成为promise的结果。
+```
+.then(()=>{
+	.then()返回的新的promise的结果状态由什么决定
+	回调函数执行的结果决定
+	1. 抛出异常
+	throw '异常'
+	得到的promise的状态就是reject，结果就是抛出的异常结果
+	
+	2. 返回非Promise
+	return '111'
+	得到的promise的状态就是成功,结果就是返回的结果
+	
+    3. 返回一个promise，
+	return new Promise((resole,reject)=>{
+		
+	})
+	得到的promise的状态由返回的promise的状态决定，结果是返回的promise的结果
+})
+```
 
 ### 异常穿透
 ```
